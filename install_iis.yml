@@ -1,0 +1,11 @@
+---
+- name: Install IIS on Windows
+  hosts: win
+  tasks:
+    - name: Install IIS Web Server
+      ansible.builtin.raw: |
+        powershell.exe -Command "Install-WindowsFeature -Name Web-Server -IncludeManagementTools"
+
+    - name: Ensure IIS Service is Running
+      ansible.builtin.raw: |
+        powershell.exe -Command "Start-Service W3SVC; Set-Service -Name W3SVC -StartupType Automatic"
